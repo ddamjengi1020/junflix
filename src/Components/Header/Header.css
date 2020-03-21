@@ -1,0 +1,7 @@
+.navList {
+    color: red;
+}
+
+.navList:hover {
+    background-color: green;
+}
