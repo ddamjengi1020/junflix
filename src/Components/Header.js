@@ -40,18 +40,20 @@ const Slink = styled(Link)`
   align-items: center;
 `;
 
-export default withRouter(({ location: { pathname: path } }) => (
-  <Header>
-    <List>
-      <Item current={path === "/"}>
-        <Slink to="/">Home</Slink>
-      </Item>
-      <Item current={path === "/tv"}>
-        <Slink to="/tv">TV</Slink>
-      </Item>
-      <Item current={path === "/search"}>
-        <Slink to="/search">Search</Slink>
-      </Item>
-    </List>
-  </Header>
-));
+export default withRouter(({ location: { pathname: path } }) => {
+  return (
+    <Header>
+      <List>
+        <Item current={path === "/"}>
+          <Slink to="/">Home</Slink>
+        </Item>
+        <Item current={path === "/tv"}>
+          <Slink to="/tv">TV</Slink>
+        </Item>
+        <Item current={path === "/search"}>
+          <Slink to="/search">Search</Slink>
+        </Item>
+      </List>
+    </Header>
+  );
+});
