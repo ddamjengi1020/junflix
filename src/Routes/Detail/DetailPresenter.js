@@ -1,6 +1,6 @@
-import React from "react";
+// import React from "react";
 import propTypes from "prop-types";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 const DetailPresenter = ({ result, error, loading }) => null;
 

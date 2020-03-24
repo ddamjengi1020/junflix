@@ -1,6 +1,7 @@
-import React from "react";
+// import React from "react";
 import propTypes from "prop-types";
-import styled from "styled-components";
+// import styled from "styled-components";
+// import Loader from "../../Components/Loader";
 
 const SearchPresenter = ({
   movieResults,

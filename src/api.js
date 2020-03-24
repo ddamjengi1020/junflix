@@ -2,7 +2,7 @@ import axios from "axios";
 
 const params = {
   api_key: "330bb808249284ee577c0190446a6570",
-  language: "en-US"
+  language: "ko"
 };
 
 const api = axios.create({
@@ -18,7 +18,7 @@ export const movieApi = {
       params: {
         ...params,
         append_to_response: "videos,images",
-        include_image_language: "en"
+        include_image_language: "en,null"
       }
     }),
   search: term =>
@@ -39,7 +39,7 @@ export const tvApi = {
       params: {
         ...params,
         append_to_response: "videos,images",
-        include_image_language: "en"
+        include_image_language: "en,null"
       }
     }),
   search: term =>

@@ -12,13 +12,15 @@ const Header = styled.header`
   height: 90px;
   display: flex;
   align-items: center;
-  background-color: #1e272e96;
+  background-color: #1e272f99;
   box-shadow: 0 4px 10px #485460;
 `;
 
 const List = styled.ul`
   height: 100%;
+  width: 300px;
   display: flex;
+  justify-content: space-around;
 `;
 
 const Item = styled.li`

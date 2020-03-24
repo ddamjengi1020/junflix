@@ -1,9 +1,63 @@
 import React from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
+import Section from "Components/Section";
+import Loader from "Components/Loader";
+
+const Container = styled.div`
+  padding: 0px 40px;
+`;
+
+const Poster = styled.img`
+  width: 150px;
+`;
 
 const TVPresenter = ({ airingPlaying, topRating, popular, error, loading }) =>
-  null;
+  loading ? (
+    <Loader />
+  ) : (
+    <Container>
+      {airingPlaying && airingPlaying.length > 0 && (
+        <Section title="Airing playing">
+          {airingPlaying.map(show => (
+            <span key={show.id}>
+              <Poster
+                src={`https://image.tmdb.org/t/p/w200/${show.poster_path}`}
+                alt=""
+              />
+              {show.name}
+            </span>
+          ))}
+        </Section>
+      )}
+      {topRating && topRating.length > 0 && (
+        <Section title="Top rating">
+          {topRating.map(show => (
+            <span key={show.id}>
+              <Poster
+                src={`https://image.tmdb.org/t/p/w200/${show.poster_path}`}
+                alt=""
+              />
+              {show.name}
+            </span>
+          ))}
+        </Section>
+      )}
+      {popular && popular.length > 0 && (
+        <Section title="Popular">
+          {popular.map(show => (
+            <span key={show.id}>
+              <Poster
+                src={`https://image.tmdb.org/t/p/w200/${show.poster_path}`}
+                alt=""
+              />
+              {show.name}
+            </span>
+          ))}
+        </Section>
+      )}
+    </Container>
+  );
 
 TVPresenter.propTypes = {
   airingPlaying: propTypes.array,
