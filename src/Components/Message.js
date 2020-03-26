@@ -12,14 +12,15 @@ const Text = styled.span`
   font-size: 18px;
 `;
 
-const Error = ({ text }) => (
+const Message = ({ text, color }) => (
   <Container>
-    <Text>{text}</Text>
+    <Text color={color}>{text}</Text>
   </Container>
 );
 
-Error.propTypes = {
-  text: propTypes.string.isRequired
+Message.propTypes = {
+  text: propTypes.string.isRequired,
+  color: propTypes.string.isRequired
 };
 
-export default Error;
+export default Message;
