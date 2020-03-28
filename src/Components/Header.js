@@ -12,8 +12,9 @@ const Header = styled.header`
   height: 90px;
   display: flex;
   align-items: center;
-  background-color: #1e272f99;
-  box-shadow: 0 4px 10px #485460;
+  background-color: rgba(0, 0, 0, 0.705);
+  box-shadow: 0 4px 10px #3d3d3d;
+  z-index: 9;
 `;
 
 const List = styled.ul`

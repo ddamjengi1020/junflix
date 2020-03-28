@@ -4,13 +4,10 @@ import styled from "styled-components";
 import Section from "Components/Section";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
+import Poster from "Components/Poster";
 
 const Container = styled.div`
-  padding: 0px 40px;
-`;
-
-const Poster = styled.img`
-  width: 150px;
+  padding: 40px;
 `;
 
 const MoviePresenter = ({ nowPlaying, upcoming, popular, error, loading }) =>
@@ -21,39 +18,45 @@ const MoviePresenter = ({ nowPlaying, upcoming, popular, error, loading }) =>
       {nowPlaying && nowPlaying.length > 0 && (
         <Section title="Now Playing">
           {nowPlaying.map(movie => (
-            <span key={movie.id}>
-              <Poster
-                src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                alt=""
-              />
-              {movie.title}
-            </span>
+            <Poster
+              key={movie.id}
+              id={movie.id}
+              title={movie.title}
+              imgUrl={movie.poster_path}
+              rating={movie.vote_average}
+              year={movie.release_date}
+              isMovie={true}
+            />
           ))}
         </Section>
       )}
       {popular && popular.length > 0 && (
         <Section title="Popular">
           {popular.map(movie => (
-            <span key={movie.id}>
-              <Poster
-                src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                alt=""
-              />
-              {movie.title}
-            </span>
+            <Poster
+              key={movie.id}
+              id={movie.id}
+              title={movie.title}
+              imgUrl={movie.poster_path}
+              rating={movie.vote_average}
+              year={movie.release_date}
+              isMovie={true}
+            />
           ))}
         </Section>
       )}
       {upcoming && upcoming.length > 0 && (
         <Section title="Up Coming">
           {upcoming.map(movie => (
-            <span key={movie.id}>
-              <Poster
-                src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
-                alt=""
-              />
-              {movie.title}
-            </span>
+            <Poster
+              key={movie.id}
+              id={movie.id}
+              title={movie.title}
+              imgUrl={movie.poster_path}
+              rating={movie.vote_average}
+              year={movie.release_date}
+              isMovie={true}
+            />
           ))}
         </Section>
       )}

@@ -18,14 +18,6 @@ const Grid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, 150px);
   grid-gap: 30px;
-  span {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  span img {
-    margin-bottom: 10px;
-  }
 `;
 
 const Section = ({ title, children }) => (
