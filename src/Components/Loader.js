@@ -2,6 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 
 const Container = styled.div`
+  margin-top: 30px;
   width: 100vw;
   display: flex;
   justify-content: center;

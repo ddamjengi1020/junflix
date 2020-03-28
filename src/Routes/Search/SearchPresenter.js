@@ -1,6 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
+import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Section from "Components/Section";
 import Message from "Components/Message";
@@ -11,7 +12,8 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-  max-width: 350px;
+  max-width: 400px;
+  margin-bottom: 40px;
 `;
 
 const Input = styled.input`
@@ -20,7 +22,7 @@ const Input = styled.input`
   background-color: transparent;
   border: none;
   color: white;
-  font-size: 25px;
+  font-size: 30px;
   &:active,
   &:focus {
     outline: none;
@@ -40,6 +42,9 @@ const SearchPresenter = ({
   updateTerm
 }) => (
   <Container>
+    <Helmet>
+      <title>Search | Junflix</title>
+    </Helmet>
     <Form onSubmit={handleSubmit}>
       <Input
         placeholder="Search Movies or TV Shows..."

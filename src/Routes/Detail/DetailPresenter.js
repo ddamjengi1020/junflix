@@ -1,5 +1,6 @@
 import React from "react";
 import propTypes from "prop-types";
+import Helmet from "react-helmet";
 import styled from "styled-components";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
@@ -91,9 +92,17 @@ const Overview = styled.p`
 
 const DetailPresenter = ({ result, error, loading }) =>
   loading ? (
-    <Loader />
+    <>
+      <Helmet>
+        <title>Loading.. | Junflix</title>
+      </Helmet>
+      <Loader />
+    </>
   ) : (
     <Container>
+      <Helmet>
+        <title>{result.title ? result.title : result.name} | Junflix</title>
+      </Helmet>
       <Backdrop
         bgimage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
       />
