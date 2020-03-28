@@ -77,11 +77,11 @@ const Poster = ({ id, title, imgUrl, rating, year, isMovie = false }) => (
         />
         <Rating>
           <Star rating={rating * 10}>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
+            <i className="fas fa-star"></i>
           </Star>
           <span>{rating}/10</span>
         </Rating>

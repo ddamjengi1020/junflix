@@ -2,11 +2,13 @@ import React from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
 import Loader from "Components/Loader";
+import Message from "Components/Message";
 
 const Container = styled.div`
   width: 100%;
   height: calc(100vh - 90px);
   position: relative;
+  padding: 30px;
 `;
 
 const Backdrop = styled.div`
@@ -22,6 +24,71 @@ const Backdrop = styled.div`
   opacity: 0.5;
 `;
 
+const Content = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+`;
+
+const Cover = styled.div`
+  width: 30%;
+  height: 100%;
+  background-image: url(${props => props.bgimage});
+  background-size: cover;
+  background-position: center center;
+  border-radius: 5px;
+`;
+
+const Data = styled.div`
+  width: 60%;
+  margin-left: 30px;
+`;
+
+const Title = styled.h2`
+  font-size: 45px;
+  font-weight: 600;
+  margin-bottom: 20px;
+`;
+
+const ItemContainer = styled.div`
+  display: flex;
+  margin-bottom: 30px;
+  font-size: 14px;
+`;
+
+const Item = styled.span`
+  span {
+    &:not(:last-child) {
+      margin-right: 5px;
+      &::after {
+        content: " |";
+      }
+    }
+  }
+`;
+
+const Star = styled.span`
+  display: flex;
+  background: -webkit-linear-gradient(
+    left,
+    #f1c40f ${props => props.rating}%,
+    #ffffff40 ${props => 100 - props.rating}%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+`;
+
+const Divider = styled.span`
+  margin: 0 10px;
+`;
+
+const Overview = styled.p`
+  line-height: 1.5;
+  font-size: 16px;
+`;
+
 const DetailPresenter = ({ result, error, loading }) =>
   loading ? (
     <Loader />
@@ -30,6 +97,48 @@ const DetailPresenter = ({ result, error, loading }) =>
       <Backdrop
         bgimage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
       />
+      <Content>
+        <Cover
+          bgimage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+        />
+        <Data>
+          <Title>{result.title ? result.title : result.name}</Title>
+          <ItemContainer>
+            <Item>
+              {result.release_date
+                ? result.release_date.substring(0, 4)
+                : result.first_air_date.substring(0, 4)}
+            </Item>
+            <Divider>•</Divider>
+            <Item>
+              {result.runtime || result.runtime === 0
+                ? result.runtime
+                : result.episode_run_time[0]}
+              min
+            </Item>
+            <Divider>•</Divider>
+            <Item>
+              {result.genres.map(genre => (
+                <span key={genre.id}>{genre.name}</span>
+              ))}
+            </Item>
+            <Divider>•</Divider>
+            <Star
+              rating={
+                (result.rating ? result.rating : result.vote_average) * 10
+              }
+            >
+              <i className="fas fa-star"></i>
+              <i className="fas fa-star"></i>
+              <i className="fas fa-star"></i>
+              <i className="fas fa-star"></i>
+              <i className="fas fa-star"></i>
+            </Star>
+          </ItemContainer>
+          <Overview>{result.overview}</Overview>
+        </Data>
+      </Content>
+      {error && <Message color="#e84118" text={error} />}
     </Container>
   );
 
