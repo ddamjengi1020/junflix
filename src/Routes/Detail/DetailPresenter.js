@@ -71,14 +71,17 @@ const Item = styled.span`
 
 const Star = styled.span`
   display: flex;
-  background: -webkit-linear-gradient(
+  ${props =>
+    props.rating === 0
+      ? "i{ color: #ffffff40 }"
+      : `background: -webkit-linear-gradient(
     left,
     #f1c40f ${props => props.rating}%,
     #ffffff40 ${props => 100 - props.rating}%
   );
   background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;
+  color: transparent;`}
 `;
 
 const Divider = styled.span`
@@ -88,6 +91,24 @@ const Divider = styled.span`
 const Overview = styled.p`
   line-height: 1.5;
   font-size: 16px;
+`;
+
+const Anchor = styled.span`
+  background-color: ${props => (props.isMovie ? "#e2b616" : "#60a3bc")};
+  padding: 0 2px;
+  outline: none;
+  border-radius: 3px;
+  color: #2d3436;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 800;
+  font-size: 13px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  ${props =>
+    props.isMovie
+      ? "display: initial"
+      : props.isHomepage
+      ? "display: initial"
+      : "display: none"}
 `;
 
 const DetailPresenter = ({ result, error, loading }) =>
@@ -130,6 +151,22 @@ const DetailPresenter = ({ result, error, loading }) =>
               {result.genres.map(genre => (
                 <span key={genre.id}>{genre.name}</span>
               ))}
+            </Item>
+            <Divider>•</Divider>
+            <Item>
+              <Anchor
+                as="a"
+                href={
+                  result.imdb_id
+                    ? `https://www.imdb.com/title/${result.imdb_id}`
+                    : result.homepage
+                }
+                target="_blank"
+                isMovie={result.imdb_id}
+                isHomepage={result.homepage}
+              >
+                {result.imdb_id ? "IMDb" : "Homepage"}
+              </Anchor>
             </Item>
             <Divider>•</Divider>
             <Star
