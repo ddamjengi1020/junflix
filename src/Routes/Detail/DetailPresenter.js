@@ -71,17 +71,14 @@ const Item = styled.span`
 
 const Star = styled.span`
   display: flex;
-  ${props =>
-    props.rating === 0
-      ? "i{ color: #ffffff40 }"
-      : `background: -webkit-linear-gradient(
+  background: -webkit-linear-gradient(
     left,
     #f1c40f ${props => props.rating}%,
     #ffffff40 ${props => 100 - props.rating}%
   );
   background-clip: text;
   -webkit-background-clip: text;
-  color: transparent;`}
+  color: transparent;
 `;
 
 const Divider = styled.span`
