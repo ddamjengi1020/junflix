@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import propTypes from "prop-types";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
+import TabContents from "Components/TabContents";
 
 const Container = styled.div`
   width: 100%;
@@ -102,111 +103,7 @@ const Anchor = styled.span`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 
-const TabsContainer = styled.div`
-  margin-top: 30px;
-`;
-
-const Tabs = styled.button`
-  background-color: #2d343640;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
-  transition: all 0.2s linear;
-  cursor: pointer;
-  &:hover,
-  &:active {
-    background-color: white;
-    color: black;
-  }
-`;
-
-const ListContainer = styled.ul`
-  padding: 15px;
-`;
-
-const List = styled.li`
-  &:not(:last-child) {
-    margin-bottom: 10px;
-  }
-`;
-
-const VideoLink = styled.a`
-  text-decoration-line: underline;
-`;
-
 const DetailPresenter = ({ result, error, loading }) => {
-  const content = [
-    {
-      tab: "Videos",
-      content: (
-        <>
-          {result ? (
-            <ListContainer>
-              {result.videos.results.map(video => (
-                <List key={video.id}>
-                  <VideoLink
-                    href={`https://www.youtube.com/watch?v=${video.key}`}
-                    target="_blank"
-                  >
-                    {video.type}
-                  </VideoLink>
-                </List>
-              ))}
-            </ListContainer>
-          ) : null}
-        </>
-      )
-    },
-    {
-      tab: "Production Company",
-      content: (
-        <>
-          <ListContainer>
-            {result
-              ? result.production_companies.map(company => (
-                  <List key={company.id}>{company.name}</List>
-                ))
-              : null}
-          </ListContainer>
-        </>
-      )
-    },
-    {
-      tab: "Country",
-      content: (
-        <>
-          {result ? (
-            result.production_countries ? (
-              <ListContainer>
-                {result.production_countries.map((country, index) => (
-                  <List key={index}>{country.name}</List>
-                ))}
-              </ListContainer>
-            ) : (
-              <ListContainer>-</ListContainer>
-            )
-          ) : null}
-        </>
-      )
-    }
-  ];
-
-  const useTabs = (initialTab, allTabs) => {
-    if (!allTabs || !Array.isArray(allTabs)) {
-      return;
-    }
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [currentIndex, setCurrentIndex] = useState(initialTab);
-    return {
-      currentItem: allTabs[currentIndex],
-      changeItem: setCurrentIndex
-    };
-  };
-
-  const { currentItem, changeItem } = useTabs(0, content);
-
   return loading ? (
     <>
       <Helmet>
@@ -224,7 +121,11 @@ const DetailPresenter = ({ result, error, loading }) => {
       />
       <Content>
         <Cover
-          bgimage={`https://image.tmdb.org/t/p/original${result.poster_path}`}
+          bgimage={
+            result.poster_path
+              ? `https://image.tmdb.org/t/p/original${result.poster_path}`
+              : require("../../image/no-poster.png")
+          }
         />
         <Data>
           <Title>{result.title ? result.title : result.name}</Title>
@@ -276,14 +177,7 @@ const DetailPresenter = ({ result, error, loading }) => {
             </Star>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
-          <TabsContainer>
-            {content.map((section, index) => (
-              <Tabs key={index} onClick={() => changeItem(index)}>
-                {section.tab}
-              </Tabs>
-            ))}
-            <div>{currentItem.content}</div>
-          </TabsContainer>
+          <TabContents result={result} />
         </Data>
       </Content>
       {error && <Message color="#e84118" text={error} />}
