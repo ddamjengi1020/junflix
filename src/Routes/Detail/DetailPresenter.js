@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import propTypes from "prop-types";
 import Helmet from "react-helmet";
 import styled from "styled-components";
@@ -103,6 +104,22 @@ const Anchor = styled.span`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 
+const Collection = styled.button`
+  width: 100px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background-color: #ffffff50;
+  font-weight: 600;
+  margin-top: 20px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: all 0.3s linear;
+  &:hover {
+    background-color: #ffffff;
+  }
+`;
+
 const DetailPresenter = ({ result, error, loading }) => {
   return loading ? (
     <>
@@ -178,6 +195,11 @@ const DetailPresenter = ({ result, error, loading }) => {
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <TabContents result={result} />
+          {result.belongs_to_collection ? (
+            <Link to={`/collection/${result.belongs_to_collection.id}`}>
+              <Collection>Collection</Collection>
+            </Link>
+          ) : null}
         </Data>
       </Content>
       {error && <Message color="#e84118" text={error} />}
