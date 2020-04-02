@@ -8,7 +8,7 @@ export default class extends React.Component {
     this.state = {
       data: null,
       error: null,
-      loading: false
+      loading: true
     };
   }
 
@@ -23,18 +23,18 @@ export default class extends React.Component {
       ({ data } = await movieApi.movieCollection(id));
     } catch (error) {
       this.setState({
-        error: "Can't bring the data"
+        error: "Information could not be retrieved"
       });
     } finally {
       this.setState({
         data,
-        loading: true
+        loading: false
       });
     }
   }
 
   render() {
-    console.log(this.state.data);
-    return <CollectionPresenter />;
+    const { data, error, loading } = this.state;
+    return <CollectionPresenter data={data} error={error} loading={loading} />;
   }
 }
