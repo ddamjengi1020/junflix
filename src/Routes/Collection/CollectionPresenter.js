@@ -110,8 +110,8 @@ const CollectionPresenter = ({ data, error, loading }) =>
         <Grid columns={data.parts ? data.parts.length : null}>
           {data.parts
             ? data.parts.map(part => (
-                <Link to={`/movie/${part.id}`}>
-                  <PartContainer key={part.id}>
+                <Link to={`/movie/${part.id}`} key={part.id}>
+                  <PartContainer>
                     <PartImage
                       src={`https://image.tmdb.org/t/p/original${part.poster_path}`}
                       alt=""

@@ -3,6 +3,11 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const TabsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const TabsTitle = styled.div`
   max-width: 290px;
   margin-top: 30px;
   display: grid;
@@ -61,7 +66,7 @@ const TabContents = ({ result }) => {
       tab: "Videos",
       content: (
         <>
-          {result ? (
+          {result.videos.results ? (
             <ListContainer>
               {result.videos.results.map(video => (
                 <List key={video.id}>
@@ -84,7 +89,7 @@ const TabContents = ({ result }) => {
       content: (
         <>
           <ListContainer>
-            {result
+            {result.production_companies
               ? result.production_companies.map(company => (
                   <List key={company.id}>{company.name}</List>
                 ))
@@ -97,17 +102,13 @@ const TabContents = ({ result }) => {
       tab: "Countries",
       content: (
         <>
-          {result ? (
-            result.production_countries ? (
-              <ListContainer>
-                {result.production_countries.map((country, index) => (
+          <ListContainer>
+            {result.production_countries
+              ? result.production_countries.map((country, index) => (
                   <List key={index}>{country.name}</List>
-                ))}
-              </ListContainer>
-            ) : (
-              <ListContainer>-</ListContainer>
-            )
-          ) : null}
+                ))
+              : null}
+          </ListContainer>
         </>
       )
     }
@@ -132,17 +133,19 @@ const TabContents = ({ result }) => {
   return (
     <>
       <TabsContainer>
-        {content.map((section, index) => (
-          <Tabs
-            key={index}
-            onClick={() => changeItem(index)}
-            autoFocus={index === 0 ? true : false}
-          >
-            {section.tab}
-          </Tabs>
-        ))}
+        <TabsTitle>
+          {content.map((section, index) => (
+            <Tabs
+              key={index}
+              onClick={() => changeItem(index)}
+              autoFocus={index === 0 ? true : false}
+            >
+              {section.tab}
+            </Tabs>
+          ))}
+        </TabsTitle>
+        <div>{currentItem.content}</div>
       </TabsContainer>
-      <div>{currentItem.content}</div>
     </>
   );
 };

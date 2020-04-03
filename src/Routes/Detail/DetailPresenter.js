@@ -6,6 +6,8 @@ import styled from "styled-components";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
 import TabContents from "Components/TabContents";
+import Seasons from "Components/Seasons";
+import CreateBy from "Components/CreateBy";
 
 const Container = styled.div`
   width: 100%;
@@ -120,6 +122,10 @@ const Collection = styled.button`
   }
 `;
 
+const TabnSeason = styled.div`
+  display: flex;
+`;
+
 const DetailPresenter = ({ result, error, loading }) => {
   return loading ? (
     <>
@@ -194,7 +200,13 @@ const DetailPresenter = ({ result, error, loading }) => {
             </Star>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
-          <TabContents result={result} />
+          <TabnSeason>
+            <TabContents result={result} />
+            {result.seasons ? <Seasons seasons={result.seasons} /> : null}
+            {result.created_by && result.created_by.length !== 0 ? (
+              <CreateBy persons={result.created_by} />
+            ) : null}
+          </TabnSeason>
           {result.belongs_to_collection ? (
             <Link to={`/collection/${result.belongs_to_collection.id}`}>
               <Collection>Collection</Collection>
