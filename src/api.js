@@ -49,13 +49,5 @@ export const tvApi = {
         ...params,
         query: encodeURIComponent(term)
       }
-    }),
-  season: (id, num) =>
-    api.get(`/tv/${id}/season/${num}`, {
-      params: {
-        ...params,
-        append_to_response: "videos,images",
-        include_image_language: "en,null"
-      }
     })
 };

@@ -7,7 +7,7 @@ import Loader from "Components/Loader";
 import Message from "Components/Message";
 import TabContents from "Components/TabContents";
 import Seasons from "Components/Seasons";
-import CreateBy from "Components/CreateBy";
+import Creator from "Components/Creator";
 
 const Container = styled.div`
   width: 100%;
@@ -204,7 +204,7 @@ const DetailPresenter = ({ result, error, loading }) => {
             <TabContents result={result} />
             {result.seasons ? <Seasons seasons={result.seasons} /> : null}
             {result.created_by && result.created_by.length !== 0 ? (
-              <CreateBy persons={result.created_by} />
+              <Creator persons={result.created_by} />
             ) : null}
           </TabnSeason>
           {result.belongs_to_collection ? (

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Loader from "Components/Loader";
+import Message from "Components/Message";
 
 const Container = styled.div`
   width: 100%;
@@ -123,6 +124,7 @@ const CollectionPresenter = ({ data, error, loading }) =>
             : null}
         </Grid>
       </DataContainer>
+      {error && <Message color="#e84118" text={error} />}
     </Container>
   );
 

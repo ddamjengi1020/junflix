@@ -79,7 +79,7 @@ const Name = styled.span`
 
 const CreateBy = ({ persons }) => (
   <Container>
-    <Title>Create By</Title>
+    <Title>Creator</Title>
     <Grid columns={persons.length}>
       {persons.map(person => (
         <Persons key={person.id}>

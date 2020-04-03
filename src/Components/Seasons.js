@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -79,19 +78,17 @@ const Season = ({ seasons }) => (
     <Title>Season</Title>
     <SeasonsGrid columns={seasons.length}>
       {seasons.map(season => (
-        <Link to={`/season/${season.id}`} key={season.id}>
-          <Seasons>
-            <SeasonNum>{season.season_number}</SeasonNum>
-            <SeasonImage
-              src={
-                season.poster_path
-                  ? `https://image.tmdb.org/t/p/original${season.poster_path}`
-                  : require("../image/no-poster.png")
-              }
-              alt=""
-            />
-          </Seasons>
-        </Link>
+        <Seasons key={season.id}>
+          <SeasonNum>{season.season_number}</SeasonNum>
+          <SeasonImage
+            src={
+              season.poster_path
+                ? `https://image.tmdb.org/t/p/original${season.poster_path}`
+                : require("../image/no-poster.png")
+            }
+            alt=""
+          />
+        </Seasons>
       ))}
     </SeasonsGrid>
   </Container>
