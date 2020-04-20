@@ -6,22 +6,22 @@ export default class extends React.Component {
   constructor(props) {
     super(props);
     const {
-      location: { pathname }
+      location: { pathname },
     } = props;
     this.state = {
       result: null,
       error: null,
       loading: true,
-      isMovie: pathname.includes("/movie/")
+      isMovie: pathname.includes("/movie/"),
     };
   }
 
   async componentDidMount() {
     const {
       match: {
-        params: { id }
+        params: { id },
       },
-      history: { push }
+      history: { push },
     } = this.props;
     const { isMovie } = this.state;
     const parsedId = Number(id);
@@ -37,18 +37,27 @@ export default class extends React.Component {
       }
     } catch (error) {
       this.setState({
-        error: "Can't find anything!"
+        error: "Can't find anything!",
       });
     } finally {
       this.setState({
         loading: false,
-        result
+        result,
       });
     }
+    const videoBtn = document.getElementById("jsInitClick");
+    videoBtn.click();
   }
 
   render() {
-    const { result, error, loading } = this.state;
-    return <DetailPresenter result={result} error={error} loading={loading} />;
+    const { result, error, loading, isMovie } = this.state;
+    return (
+      <DetailPresenter
+        result={result}
+        error={error}
+        loading={loading}
+        isMovie={isMovie}
+      />
+    );
   }
 }

@@ -27,7 +27,7 @@ const List = styled.ul`
 const Item = styled.li`
   height: 100%;
   border-bottom: 5px solid
-    ${props => (props.current ? "#ffc048" : "transparent")};
+    ${(props) => (props.current ? "#ffc048" : "transparent")};
   transition: border-bottom 0.3s linear;
   &:hover,
   &:active {
@@ -47,10 +47,10 @@ export default withRouter(({ location: { pathname: path } }) => {
   return (
     <Header>
       <List>
-        <Item current={path === "/"}>
+        <Item current={path === "/" || path.includes("movie")}>
           <Slink to="/">Movie</Slink>
         </Item>
-        <Item current={path === "/tv"}>
+        <Item current={path === "/tv" || path.includes("tv")}>
           <Slink to="/tv">TV</Slink>
         </Item>
         <Item current={path === "/search"}>

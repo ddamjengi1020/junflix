@@ -17,7 +17,7 @@ const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(${props => props.bgimage});
+  background-image: url(${(props) => props.bgimage});
   opacity: 0.5;
   filter: blur(3px);
 `;
@@ -41,7 +41,7 @@ const Grid = styled.span`
   margin: auto;
   display: grid;
   padding-bottom: 20px;
-  grid-template-columns: repeat(${props => props.columns}, 1fr);
+  grid-template-columns: repeat(${(props) => props.columns}, 1fr);
   grid-gap: 20px;
   justify-items: center;
   align-items: center;
@@ -110,11 +110,15 @@ const CollectionPresenter = ({ data, error, loading }) =>
         <MainTitle>{data.name}</MainTitle>
         <Grid columns={data.parts ? data.parts.length : null}>
           {data.parts
-            ? data.parts.map(part => (
+            ? data.parts.map((part) => (
                 <Link to={`/movie/${part.id}`} key={part.id}>
                   <PartContainer>
                     <PartImage
-                      src={`https://image.tmdb.org/t/p/original${part.poster_path}`}
+                      src={
+                        part.poster_path
+                          ? `https://image.tmdb.org/t/p/original${part.poster_path}`
+                          : require("../../image/no-poster.png")
+                      }
                       alt=""
                     />
                     <PartTitle>{part.original_title}</PartTitle>
@@ -131,7 +135,7 @@ const CollectionPresenter = ({ data, error, loading }) =>
 CollectionPresenter.propTypes = {
   data: PropTypes.object,
   error: PropTypes.string,
-  loading: PropTypes.bool.isRequired
+  loading: PropTypes.bool.isRequired,
 };
 
 export default CollectionPresenter;

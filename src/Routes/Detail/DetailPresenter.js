@@ -5,9 +5,9 @@ import Helmet from "react-helmet";
 import styled from "styled-components";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
-import TabContents from "Components/TabContents";
 import Seasons from "Components/Seasons";
 import Creator from "Components/Creator";
+import Taps from "Components/Taps";
 
 const Container = styled.div`
   width: 100%;
@@ -22,7 +22,7 @@ const Backdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(${props => props.bgimage});
+  background-image: url(${(props) => props.bgimage});
   background-size: cover;
   background-position: center center;
   filter: blur(4px);
@@ -39,7 +39,7 @@ const Content = styled.div`
 const Cover = styled.div`
   width: 30%;
   height: 100%;
-  background-image: url(${props => props.bgimage});
+  background-image: url(${(props) => props.bgimage});
   background-size: cover;
   background-position: center center;
   border-radius: 5px;
@@ -77,8 +77,8 @@ const Star = styled.span`
   display: flex;
   background: -webkit-linear-gradient(
     left,
-    #f1c40f ${props => props.rating}%,
-    #ffffff40 ${props => 100 - props.rating}%
+    #f1c40f ${(props) => props.rating}%,
+    #ffffff40 ${(props) => 100 - props.rating}%
   );
   background-clip: text;
   -webkit-background-clip: text;
@@ -95,7 +95,7 @@ const Overview = styled.p`
 `;
 
 const Anchor = styled.span`
-  background-color: ${props => (props.isMovie ? "#e2b616" : "#60a3bc")};
+  background-color: ${(props) => (props.isMovie ? "#e2b616" : "#60a3bc")};
   padding: 0 2px;
   outline: none;
   border-radius: 3px;
@@ -122,11 +122,15 @@ const Collection = styled.button`
   }
 `;
 
-const TabnSeason = styled.div`
+const Season = styled.div`
   display: flex;
 `;
 
-const DetailPresenter = ({ result, error, loading }) => {
+const TapnSeason = styled.div`
+  display: flex;
+`;
+
+const DetailPresenter = ({ result, error, loading, isMovie }) => {
   return loading ? (
     <>
       <Helmet>
@@ -140,7 +144,11 @@ const DetailPresenter = ({ result, error, loading }) => {
         <title>{result.title ? result.title : result.name} | Junflix</title>
       </Helmet>
       <Backdrop
-        bgimage={`https://image.tmdb.org/t/p/original${result.backdrop_path}`}
+        bgimage={
+          result.backdrop_path
+            ? `https://image.tmdb.org/t/p/original${result.backdrop_path}`
+            : null
+        }
       />
       <Content>
         <Cover
@@ -156,7 +164,9 @@ const DetailPresenter = ({ result, error, loading }) => {
             <Item>
               {result.release_date
                 ? result.release_date.substring(0, 4)
-                : result.first_air_date.substring(0, 4)}
+                : result.release_date !== ""
+                ? result.first_air_date.substring(0, 4)
+                : null}
             </Item>
             <Divider>•</Divider>
             <Item>
@@ -167,7 +177,7 @@ const DetailPresenter = ({ result, error, loading }) => {
             </Item>
             <Divider>•</Divider>
             <Item>
-              {result.genres.map(genre => (
+              {result.genres.map((genre) => (
                 <span key={genre.id}>{genre.name}</span>
               ))}
             </Item>
@@ -200,18 +210,20 @@ const DetailPresenter = ({ result, error, loading }) => {
             </Star>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
-          <TabnSeason>
-            <TabContents result={result} />
-            {result.seasons ? <Seasons seasons={result.seasons} /> : null}
-            {result.created_by && result.created_by.length !== 0 ? (
-              <Creator persons={result.created_by} />
-            ) : null}
-          </TabnSeason>
-          {result.belongs_to_collection ? (
+          <TapnSeason>
+            <Taps result={result} isMovie={isMovie} />
+            <Season>
+              {!isMovie && <Seasons seasons={result.seasons} />}
+              {result.created_by && result.created_by.length !== 0 && (
+                <Creator persons={result.created_by} />
+              )}
+            </Season>
+          </TapnSeason>
+          {result.belongs_to_collection && (
             <Link to={`/collection/${result.belongs_to_collection.id}`}>
               <Collection>Collection</Collection>
             </Link>
-          ) : null}
+          )}
         </Data>
       </Content>
       {error && <Message color="#e84118" text={error} />}
@@ -222,7 +234,8 @@ const DetailPresenter = ({ result, error, loading }) => {
 DetailPresenter.propTypes = {
   result: propTypes.object,
   error: propTypes.string,
-  loading: propTypes.bool.isRequired
+  loading: propTypes.bool.isRequired,
+  isMovie: propTypes.bool.isRequired,
 };
 
 export default DetailPresenter;
