@@ -23,7 +23,7 @@ const List = styled.ul`
   display: flex;
   justify-content: space-around;
 `;
-
+const Shared = styled.div``;
 const Item = styled.li`
   height: 100%;
   border-bottom: 5px solid
@@ -57,6 +57,10 @@ export default withRouter(({ location: { pathname: path } }) => {
           <Slink to="/search">Search</Slink>
         </Item>
       </List>
+      <Shared>
+        {/* Go to www.addthis.com/dashboard to customize your tools */}
+        <div class="addthis_inline_share_toolbox"></div>
+      </Shared>
     </Header>
   );
 });
