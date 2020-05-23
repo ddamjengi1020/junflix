@@ -57,10 +57,6 @@ export default withRouter(({ location: { pathname: path } }) => {
           <Slink to="/search">Search</Slink>
         </Item>
       </List>
-      <Shared>
-        {/* Go to www.addthis.com/dashboard to customize your tools */}
-        <div class="addthis_inline_share_toolbox"></div>
-      </Shared>
     </Header>
   );
 });
